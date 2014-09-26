@@ -1,0 +1,135 @@
+
+Usage: configure [options]
+Options: [defaults in brackets after descriptions]
+
+Standard options:
+  --help                   print this message
+  --prefix=PREFIX          install in PREFIX [c:/Program Files/Qemu]
+  --interp-prefix=PREFIX   where to find shared libraries, etc.
+                           use %M for cpu name [/usr/gnemul/qemu-%M]
+  --target-list=LIST       set target list (default: build everything)
+                           Available targets: i386-softmmu x86_64-softmmu 
+                           arm-softmmu cris-softmmu lm32-softmmu m68k-softmmu 
+                           microblaze-softmmu microblazeel-softmmu mips-softmmu 
+                           mipsel-softmmu mips64-softmmu mips64el-softmmu 
+                           ppc-softmmu ppcemb-softmmu ppc64-softmmu sh4-softmmu 
+                           sh4eb-softmmu sparc-softmmu sparc64-softmmu 
+                           s390x-softmmu 
+
+Advanced options (experts only):
+  --source-path=PATH       path of source code [/android/qemu-0.15.1]
+  --cross-prefix=PREFIX    use PREFIX for compile tools []
+  --cc=CC                  use C compiler CC [gcc]
+  --host-cc=CC             use C compiler CC [gcc] for code run at
+                           build time
+  --extra-cflags=CFLAGS    append extra C compiler flags QEMU_CFLAGS
+  --extra-ldflags=LDFLAGS  append extra linker flags LDFLAGS
+  --make=MAKE              use specified make [make]
+  --install=INSTALL        use specified install [install]
+  --python=PYTHON          use specified python [python]
+  --smbd=SMBD              use specified smbd [/usr/sbin/smbd]
+  --static                 enable static build [no]
+  --mandir=PATH            install man pages in PATH
+  --datadir=PATH           install firmware in PATH
+  --docdir=PATH            install documentation in PATH
+  --bindir=PATH            install binaries in PATH
+  --sysconfdir=PATH        install config in PATH/qemu
+  --enable-debug-tcg       enable TCG debugging
+  --disable-debug-tcg      disable TCG debugging (default)
+  --enable-debug           enable common debug build options
+  --enable-sparse          enable sparse checker
+  --disable-sparse         disable sparse checker (default)
+  --disable-strip          disable stripping binaries
+  --disable-werror         disable compilation abort on warning
+  --disable-sdl            disable SDL
+  --enable-sdl             enable SDL
+  --disable-vnc            disable VNC
+  --enable-vnc             enable VNC
+  --enable-cocoa           enable COCOA (Mac OS X only)
+  --audio-drv-list=LIST    set audio drivers list:
+                           Available drivers: winwave sdl
+  --audio-card-list=LIST   set list of emulated audio cards [ac97 es1370 sb16 hda]
+                           Available cards: ac97 es1370 sb16 cs4231a adlib gus hda
+  --block-drv-whitelist=L  set block driver whitelist
+                           (affects only QEMU, not qemu-img)
+  --enable-mixemu          enable mixer emulation
+  --disable-xen            disable xen backend driver support
+  --enable-xen             enable xen backend driver support
+  --disable-brlapi         disable BrlAPI
+  --enable-brlapi          enable BrlAPI
+  --disable-vnc-tls        disable TLS encryption for VNC server
+  --enable-vnc-tls         enable TLS encryption for VNC server
+  --disable-vnc-sasl       disable SASL encryption for VNC server
+  --enable-vnc-sasl        enable SASL encryption for VNC server
+  --disable-vnc-jpeg       disable JPEG lossy compression for VNC server
+  --enable-vnc-jpeg        enable JPEG lossy compression for VNC server
+  --disable-vnc-png        disable PNG compression for VNC server (default)
+  --enable-vnc-png         enable PNG compression for VNC server
+  --disable-vnc-thread     disable threaded VNC server
+  --enable-vnc-thread      enable threaded VNC server
+  --disable-curses         disable curses output
+  --enable-curses          enable curses output
+  --disable-curl           disable curl connectivity
+  --enable-curl            enable curl connectivity
+  --disable-fdt            disable fdt device tree
+  --enable-fdt             enable fdt device tree
+  --disable-check-utests   disable check unit-tests
+  --enable-check-utests    enable check unit-tests
+  --disable-bluez          disable bluez stack connectivity
+  --enable-bluez           enable bluez stack connectivity
+  --disable-slirp          disable SLIRP userspace network connectivity
+  --disable-kvm            disable KVM acceleration support
+  --enable-kvm             enable KVM acceleration support
+  --disable-nptl           disable usermode NPTL support
+  --enable-nptl            enable usermode NPTL support
+  --enable-system          enable all system emulation targets
+  --disable-system         disable all system emulation targets
+  --enable-user            enable supported user emulation targets
+  --disable-user           disable all user emulation targets
+  --enable-linux-user      enable all linux usermode emulation targets
+  --disable-linux-user     disable all linux usermode emulation targets
+  --enable-darwin-user     enable all darwin usermode emulation targets
+  --disable-darwin-user    disable all darwin usermode emulation targets
+  --enable-bsd-user        enable all BSD usermode emulation targets
+  --disable-bsd-user       disable all BSD usermode emulation targets
+  --enable-guest-base      enable GUEST_BASE support for usermode
+                           emulation targets
+  --disable-guest-base     disable GUEST_BASE support
+  --enable-user-pie        build usermode emulation targets as PIE
+  --disable-user-pie       do not build usermode emulation targets as PIE
+  --fmod-lib               path to FMOD library
+  --fmod-inc               path to FMOD includes
+  --oss-lib                path to OSS library
+  --enable-uname-release=R Return R for uname -r in usermode emulation
+  --sparc_cpu=V            Build qemu for Sparc architecture v7, v8, v8plus, v8plusa, v9
+  --disable-uuid           disable uuid support
+  --enable-uuid            enable uuid support
+  --disable-vde            disable support for vde network
+  --enable-vde             enable support for vde network
+  --disable-linux-aio      disable Linux AIO support
+  --enable-linux-aio       enable Linux AIO support
+  --disable-attr           disables attr and xattr support
+  --enable-attr            enable attr and xattr support
+  --enable-io-thread       enable IO thread
+  --disable-blobs          disable installing provided firmware blobs
+  --enable-docs            enable documentation build
+  --disable-docs           disable documentation build
+  --disable-vhost-net      disable vhost-net acceleration support
+  --enable-vhost-net       enable vhost-net acceleration support
+  --enable-trace-backend=B Set trace backend
+                           Available backends: nop simple stderr ust dtrace
+  --with-trace-file=NAME   Full PATH,NAME of file to store traces
+                           Default:trace-<pid>
+  --disable-spice          disable spice
+  --enable-spice           enable spice
+  --enable-rbd             enable building the rados block device (rbd)
+  --disable-smartcard      disable smartcard support
+  --enable-smartcard       enable smartcard support
+  --disable-smartcard-nss  disable smartcard nss support
+  --enable-smartcard-nss   enable smartcard nss support
+  --disable-usb-redir      disable usb network redirection support
+  --enable-usb-redir       enable usb network redirection support
+  --disable-guest-agent    disable building of the QEMU Guest Agent
+  --enable-guest-agent     enable building of the QEMU Guest Agent
+
+NOTE: The object files are built at the place where configure is launched

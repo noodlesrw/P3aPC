@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="libSDL.jni"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".libSDL"
+                  android:label="@string/app_name"
+                  android:screenOrientation="sensor"
+                  android:alwaysRetainTaskState="true"
+                  android:clearTaskOnLaunch="false"
+                  android:launchMode="singleInstance"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="keyboardHidden|orientation|touchscreen|keyboard"
+                  >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+    <uses-sdk android:minSdkVersion="4" />
+ 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+ 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+ 	<uses-permission android:name="android.permission.READ_INPUT_STATE"></uses-permission>
+ 	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <supports-screens android:smallScreens="true" 
+                      android:normalScreens="true" 
+                      android:largeScreens="true"  
+                      android:anyDensity="true" />
+</manifest> 

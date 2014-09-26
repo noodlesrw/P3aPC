@@ -1,0 +1,98 @@
+package libSDL.jni;
+
+import java.io.File;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.graphics.Canvas;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.util.Log;
+
+public class libSDLview extends View 
+{
+    private int ScreenBuffer[];
+    private libSDL Owner;
+    static Boolean MainCalled=false;
+    
+    public libSDLview(Context context) 
+    { 
+        super(context);
+        Owner=(libSDL)context;
+        setFocusable(true); 
+        setFocusableInTouchMode(true);
+        
+        ScreenBuffer=new int[getWidth()*getHeight()];
+        
+        setOnKeyListener(new OnKeyListener() 
+        {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+		    	if(keyCode==KeyEvent.KEYCODE_MENU)
+		    		return false;
+				if(event.getAction() == KeyEvent.ACTION_UP)
+				{
+					v.onKeyUp(keyCode, event);
+				}
+				if(event.getAction() == KeyEvent.ACTION_DOWN)
+				{
+					v.onKeyDown(keyCode, event);
+				}
+				if(event.getAction() == KeyEvent.ACTION_MULTIPLE)
+				{
+					v.onKeyMultiple(keyCode, event.getRepeatCount(), event);
+				}
+				return true;
+			} 
+		});
+        requestFocus();
+    }
+
+    protected void onDraw(Canvas canvas) 
+    {
+    	if(!MainCalled)
+    	{
+    		MainCalled=true;
+    		libSDLproxy.libSDLmain();	
+            invalidate();	// don't update now, let prog to init itself
+    		return;		
+    	}
+   		Owner.updateOrientation();
+
+    	if(libSDLproxy.libSDLupdatebuffer(ScreenBuffer,getWidth(),getHeight())==0)
+    		Owner.finish(); 
+        canvas.drawBitmap(ScreenBuffer, 0, getWidth(), 0, 0, getWidth(), getHeight(), false, null);
+        invalidate();
+    }
+
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+        ScreenBuffer=new int[w*h];
+	}
+  
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	Log.v("SDLdn", event.toString());
+    	libSDLproxy.libSDLnotifykey(1,keyCode);
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
+    	Log.v("SDLmu", event.toString());
+		return super.onKeyMultiple(keyCode, repeatCount, event);
+	}
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+    	Log.v("SDLup", event.toString());
+    	libSDLproxy.libSDLnotifykey(0,keyCode);
+		return super.onKeyUp(keyCode, event);
+	}
+}

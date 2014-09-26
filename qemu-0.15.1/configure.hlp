@@ -1,0 +1,311 @@
+##QEMU configure...
+
+
+./configure --target-list="i386-softmmu" --static --enable-sdl \
+--cross-prefix=arm-unknown-linux-gnueabi- \
+--disable-kvm --disable-slirp \
+--disable-vnc --audio-drv-list=sdl --disable-xen --disable-brlapi \
+--disable-curses --disable-curl --disable-fdt --disable-bluez --disable-user \
+--disable-uuid --disable-attr --disable-blobs --disable-docs --disable-spice \
+--disable-rbd --disable-smartcard --disable-usb-redir --enable-io-thread \
+--extra-cflags="\
+-I/home/nathan/android/gcc4x/arm-linux-elf/include/SDL \
+-I/home/nathan/android/gcc4x/arm-linux-elf/include \
+-L/home/nathan/android/gcc4x/arm-linux-elf/lib \
+--no-exceptions" \
+--extra-ldflags="-Bdynamic -z nocopyreloc -z execheap \
+-L/home/nathan/android/gcc4x/arm-linux-elf/lib \
+/home/nathan/android/gcc4x/arm-linux-elf/lib/crt0.o \
+/home/nathan/android/gcc4x/lib/gcc/arm-linux-elf/4.5.0/libgcc.a \
+-shared \
+-lc -lm "
+
+
+
+./configure --target-list="i386-softmmu" --static --enable-sdl \
+--cross-prefix=arm-unknown-linux-gnueabi- \
+--host-cc=i686-pc-linux-gnu-gcc --disable-kvm --disable-slirp \
+--extra-cflags="-mandroid -I/home/nathan/android/gcc4x/arm-linux-elf/include/SDL \
+-I/home/nathan/android/gcc4x/arm-linux-elf/include \
+-I/home/nathan/android-ndk-r7/platforms/android-5/arch-arm/usr/include" \
+--extra-ldflags="-Wl,-Bdynamic,-z,nocopyreloc,--no-undefined \
+-L/home/nathan/android/gcc4x/arm-linux-elf/lib \
+/home/nathan/android/gcc4x/arm-linux-elf/lib/crt0.o \
+-Wl,-shared,--no-whole-archive \
+-lc -lm -lz \
+/home/nathan/android/gcc4x/lib/gcc/arm-linux-elf/4.5.0/libgcc.a \
+-Wl,--whole-archive" \
+--disable-vnc --audio-drv-list=sdl --disable-xen --disable-brlapi \
+--disable-curses --disable-curl --disable-fdt --disable-bluez --disable-user \
+--disable-uuid --disable-attr --disable-blobs --disable-docs --disable-spice \
+--disable-rbd --disable-smartcard --disable-usb-redir --enable-io-thread
+
+
+
+
+
+
+./configure --target-list="i386-softmmu" --static --enable-sdl \
+--cross-prefix=arm-linux-elf- \
+--host-cc=i686-pc-linux-gnu-gcc --disable-kvm --disable-slirp \
+--extra-cflags="-I/home/nathan/android/gcc4x/arm-linux-elf/include/SDL -I/home/nathan/android/gcc4x/arm-linux-elf/include" \
+--extra-ldflags="-L/home/nathan/android/gcc4x/arm-linux-elf/lib -ldl " \
+--disable-vnc --audio-drv-list=sdl --disable-xen --disable-brlapi \
+--disable-curses --disable-curl --disable-fdt --disable-bluez --disable-user \
+--disable-uuid --disable-attr --disable-blobs --disable-docs --disable-spice \
+--disable-rbd --disable-smartcard --disable-usb-redir --enable-io-thread
+
+
+
+./configure --target-list="i386-softmmu" --static --enable-sdl \
+--cross-prefix=arm-unknown-linux-gnueabi- \
+--host-cc=i686-pc-linux-gnu-gcc --disable-kvm --disable-slirp \
+--extra-cflags="-I/home/nathan/android/gcc4x/arm-linux-elf/include/SDL" \
+--disable-vnc --audio-drv-list=sdl --disable-xen --disable-brlapi \
+--disable-curses --disable-curl --disable-fdt --disable-bluez --disable-user \
+--disable-uuid --disable-attr --disable-blobs --disable-docs --disable-spice \
+--disable-rbd --disable-smartcard --disable-usb-redir --enable-io-thread
+
+--extra-ldflags="-L/home/nathan/android/gcc4x/arm-linux-elf/lib -L/home/nathan/android/gcc4x/lib" \
+ --allow-shlib-undefined
+
+./configure --host=arm-unknown-linux-gnueabi --target=arm-unknown-linux-gnueabi \
+--prefix=/home/nathan/android/arm-linux-elf \
+--exec-prefix=/home/nathan/android/arm-linux-elf \
+--enable-pthreads --enable-sdl-dlopen --enable-pthread-sem --disable-nasm \
+--disable-oss --enable-alsa --disable-video-x11 \
+--enable-static
+
+
+./configure --target-list=arm-linux-user,mipsel-linux-user --disable-sdl --enable-vnc --disable-vde --disable-vhost-net
+
+./configure --target-list=i386-softmmu,arm-softmmu,mipsel-softmmu --enable-sdl --enable-vnc --disable-kvm --audio-drv-list=sdl --audio-card-list=ac97,es1370,sb16 --disable-vde --disable-vhost-net 
+
+
+
+./configure --target-list=i386-softmmu,arm-softmmu,mipsel-softmmu --cross-prefix=arm-unknown-linux-gnu- --host-cc=arm-unknown-linux-gnu-gcc --static --enable-sdl --enable-vnc --audio-drv-list=alsa,sdl --audio-card-list=ac97,es1370,sb16
+
+./configure --target-list=i386-softmmu --cross-prefix=armv6j-unknown-linux-gnueabi- --static --enable-sdl --enable-vnc --audio-drv-list=alsa,sdl --audio-card-list=ac97,es1370,sb16
+
+./configure --target-list=i386-softmmu --static --disable-blobs --disable-vde --disable-xen --disable-vnc --disable-brlapi --disable-kvm --disable-nptl --audio-card-list=ac97,es1370,sb16 --enable-io-thread 
+
+./configure --target-list=i386-softmmu --disable-blobs --disable-vde --disable-xen --disable-vnc --disable-brlapi --disable-kvm --disable-nptl --audio-card-list=ac97,es1370,sb16 --enable-io-thread --enable-sdl --audio-drv-list=sdl,alsa --extra-cflags="-I/usr/include/SDL/ -lSDL -lz"
+
+./configure --target-list=i386-softmmu --disable-vde --disable-xen --disable-vnc --disable-brlapi --disable-nptl --audio-card-list=ac97,es1370,sb16 --enable-io-thread --enable-sdl --audio-drv-list=sdl,alsa --extra-cflags="-I/usr/include/SDL/ -lSDL -lz" --enable-kvm --enable-blobs 
+
+
+./configure --target-list=i386-softmmu --cross-prefix=armv6j-unknown-linux-gnueabi- --static --enable-sdl --enable-vnc --audio-drv-list=alsa,sdl --audio-card-list=ac97,es1370,sb16 --extra-cflags="-I/usr/include/SDL/" --extra-ldflags="-lSDL -lz"
+
+./configure --target-list=i386-softmmu --enable-sdl --enable-vnc --audio-drv-list=alsa,sdl --audio-card-list=ac97,es1370,sb16 --extra-cflags="-I/usr/include/SDL/" --extra-ldflags="-lSDL -lz -lpthread"
+
+./configure --target-list=i386-softmmu,arm-softmmu,arm-linux-user,mipsel-softmmu,mipsel-linux-user --enable-sdl --enable-vnc --audio-drv-list=alsa,sdl --audio-card-list=ac97,es1370,sb16 --extra-cflags="-I/usr/include/SDL/" --extra-ldflags="-lSDL -lz -lpthread"
+
+./configure --target-list=i386-softmmu --enable-sdl --disable-vnc --audio-drv-list=sdl --extra-cflags="-I/home/nathan/android/SDL-1.2.14/include/" --extra-ldflags="-L/home/nathan/android/SDL-1.2.14/build/ -lSDL -lz -lpthread"
+
+./configure --target-list=i386-softmmu --cross-prefix=arm-unknown-linux-gnueabi- --enable-sdl --disable-vnc --audio-drv-list=sdl --extra-cflags="-I/home/nathan/android/SDL-1.2.14/include/" --extra-ldflags="-L/home/nathan/android/SDL-1.2.14/build/ -lSDL -lz -lpthread" --disable-blobs
+
+./configure --target-list=i386-softmmu --cross-prefix=arm-unknown-linux-gnueabi- --enable-sdl --disable-vnc --audio-drv-list=sdl --extra-cflags="-I/home/nathan/android/SDL-1.2.14/include/" --extra-ldflags="-L/home/nathan/android/SDL-1.2.14/build/" --disable-blobs --disable-kvm --disable-docs --disable-guest-agent --disable-nptl --disable-guest-base
+
+./configure --target-list=i386-softmmu --cross-prefix=arm-unknown-linux-gnueabi- \
+--extra-cflags="-I/home/nathan/android/gcc4x/arm-linux-elf/include/SDL \
+-I/home/nathan/android/SDL-1.2.14/include/" \
+--extra-ldflags="-L/home/nathan/android/gcc4x/arm-linux-elf/lib \
+-L/usr/lib/gcc/arm-unknown-linux-gnueabi/4.5.3 \
+-L/usr/arm-unknown-linux-gnueabi/lib \
+-L/home/nathan/android/SDL-1.2.14/build/.libs \
+-lSDL -lz -lpthread -pthread" \
+--enable-sdl --disable-vnc --audio-drv-list=sdl --disable-blobs --disable-kvm \
+--disable-docs --disable-guest-agent --disable-nptl --disable-guest-base
+
+./configure --target-list=i386-softmmu --cross-prefix=arm-unknown-linux-gnueabi- \
+--enable-sdl --disable-vnc --audio-drv-list=sdl --disable-blobs --disable-kvm \
+--disable-docs --disable-nptl --static --extra-cflags="-Dprintf=AND_printf"
+
+./configure --target-list=i386-softmmu --cc=arm-unknown-linux-gnueabi-gcc \
+--host-cc=gcc \
+--disable-sdl --disable-vnc --audio-drv-list=sdl --disable-blobs --disable-kvm \
+--disable-docs --disable-nptl --static --disable-user \
+--extra-cflags="-Dprintf=AND_printf -Dprint_insn_i386=print_insn_arm -I/home/nathan/android/gcc4x/arm-linux-elf/include/SDL" \
+--extra-ldflags="-L/home/nathan/android/gcc4x/arm-linux-elf/lib"
+
+./configure --static --target-list=i386-softmmu --cc=arm-unknown-linux-gnueabi-gcc \
+--host-cc=i686-pc-linux-gnu-gcc \
+--disable-sdl --enable-vnc --disable-blobs --disable-kvm --disable-vde \
+--disable-docs --disable-nptl --disable-user --disable-slirp
+
+##SDL configure...
+
+CFLAGS="-I/usr/arm-linux-elf/include -I/home/nathan/android/gcc4x/arm-linux-elf/include -I/usr/include -I/home/nathan/android-ndk-r7/platforms/android-8/arch-arm/usr/include " \
+./configure --enable-static --host=arm-linux-elf --target=arm-linux-elf \
+--prefix=/usr/arm-linux-elf \
+--exec-prefix=/usr/arm-linux-elf \
+--enable-pthreads --enable-sdl-dlopen --enable-pthread-sem --disable-oss --disable-video-x11
+
+./configure --enable-static --host=arm-unknown-linux-gnueabi --target=arm-unknown-linux-gnueabi \
+--prefix=/home/nathan/android/gcc4x/arm-linux-elf \
+--exec-prefix=/home/nathan/android/gcc4x/arm-linux-elf \
+--enable-pthreads --enable-sdl-dlopen --enable-pthread-sem --disable-oss --disable-video-x11
+
+
+
+
+./configure --target-list=arm-linux-user --static --enable-sdl --enable-vnc --disable-vde --disable-vhost-net
+
+./configure --target-list=i386-softmmu --enable-sdl --enable-vnc --disable-vde --disable-vhost-net \
+--cross-prefix=arm-unknown-linux-gnueabi- \
+--host-cc=i686-pc-linux-gnu-gcc --disable-blobs --disable-kvm --disable-vde \
+--disable-docs --disable-nptl --disable-user --disable-slirp
+
+qemu -M pc -m 256 -net nic,vlan=0 -net user,vlan=0,hostname=emu \
+  -hda wxp.vmdk -cdrom ../../..isos/WinXP_Dev.iso \
+  -boot d -usbdevice tablet -localtime
+  
+  
+  
+/mnt/sdcard/SDL/qemu-arm-nosdl -M pc -m 256 -net nic,vlan=0,model=ne2k_pci \
+  -net user,vlan=0,hostname=emu -vnc 0:2 -localtime \
+  -hda /mnt/sdcard/SDL/c.img \
+  -boot c -usbdevice tablet 
+  
+Usage: configure [options]
+Options: [defaults in brackets after descriptions]
+
+Standard options:
+  --help                   print this message
+  --prefix=PREFIX          install in PREFIX [/usr/local]
+  --interp-prefix=PREFIX   where to find shared libraries, etc.
+                           use %M for cpu name [/usr/gnemul/qemu-%M]
+  --target-list=LIST       set target list (default: build everything)
+                           Available targets: i386-softmmu x86_64-softmmu 
+                           arm-softmmu cris-softmmu lm32-softmmu m68k-softmmu 
+                           microblaze-softmmu microblazeel-softmmu mips-softmmu 
+                           mipsel-softmmu mips64-softmmu mips64el-softmmu 
+                           ppc-softmmu ppcemb-softmmu ppc64-softmmu sh4-softmmu 
+                           sh4eb-softmmu sparc-softmmu sparc64-softmmu 
+                           s390x-softmmu i386-linux-user x86_64-linux-user 
+                           alpha-linux-user arm-linux-user armeb-linux-user 
+                           cris-linux-user m68k-linux-user 
+                           microblaze-linux-user microblazeel-linux-user 
+                           mips-linux-user mipsel-linux-user ppc-linux-user 
+                           ppc64-linux-user ppc64abi32-linux-user 
+                           sh4-linux-user sh4eb-linux-user sparc-linux-user 
+                           sparc64-linux-user sparc32plus-linux-user 
+                           unicore32-linux-user s390x-linux-user 
+
+Advanced options (experts only):
+  --source-path=PATH       path of source code [/home/nathan/android/qemu-0.15.1]
+  --cross-prefix=PREFIX    use PREFIX for compile tools []
+  --cc=CC                  use C compiler CC [gcc]
+  --host-cc=CC             use C compiler CC [gcc] for code run at
+                           build time
+  --extra-cflags=CFLAGS    append extra C compiler flags QEMU_CFLAGS
+  --extra-ldflags=LDFLAGS  append extra linker flags LDFLAGS
+  --make=MAKE              use specified make [make]
+  --install=INSTALL        use specified install [install]
+  --python=PYTHON          use specified python [python]
+  --smbd=SMBD              use specified smbd [/usr/sbin/smbd]
+  --static                 enable static build [no]
+  --mandir=PATH            install man pages in PATH
+  --datadir=PATH           install firmware in PATH
+  --docdir=PATH            install documentation in PATH
+  --bindir=PATH            install binaries in PATH
+  --sysconfdir=PATH        install config in PATH/qemu
+  --enable-debug-tcg       enable TCG debugging
+  --disable-debug-tcg      disable TCG debugging (default)
+  --enable-debug           enable common debug build options
+  --enable-sparse          enable sparse checker
+  --disable-sparse         disable sparse checker (default)
+  --disable-strip          disable stripping binaries
+  --disable-werror         disable compilation abort on warning
+  --disable-sdl            disable SDL
+  --enable-sdl             enable SDL
+  --disable-vnc            disable VNC
+  --enable-vnc             enable VNC
+  --enable-cocoa           enable COCOA (Mac OS X only)
+  --audio-drv-list=LIST    set audio drivers list:
+                           Available drivers: oss alsa sdl esd pa fmod
+  --audio-card-list=LIST   set list of emulated audio cards [ac97 es1370 sb16 hda]
+                           Available cards: ac97 es1370 sb16 cs4231a adlib gus hda
+  --block-drv-whitelist=L  set block driver whitelist
+                           (affects only QEMU, not qemu-img)
+  --enable-mixemu          enable mixer emulation
+  --disable-xen            disable xen backend driver support
+  --enable-xen             enable xen backend driver support
+  --disable-brlapi         disable BrlAPI
+  --enable-brlapi          enable BrlAPI
+  --disable-vnc-tls        disable TLS encryption for VNC server
+  --enable-vnc-tls         enable TLS encryption for VNC server
+  --disable-vnc-sasl       disable SASL encryption for VNC server
+  --enable-vnc-sasl        enable SASL encryption for VNC server
+  --disable-vnc-jpeg       disable JPEG lossy compression for VNC server
+  --enable-vnc-jpeg        enable JPEG lossy compression for VNC server
+  --disable-vnc-png        disable PNG compression for VNC server (default)
+  --enable-vnc-png         enable PNG compression for VNC server
+  --disable-vnc-thread     disable threaded VNC server
+  --enable-vnc-thread      enable threaded VNC server
+  --disable-curses         disable curses output
+  --enable-curses          enable curses output
+  --disable-curl           disable curl connectivity
+  --enable-curl            enable curl connectivity
+  --disable-fdt            disable fdt device tree
+  --enable-fdt             enable fdt device tree
+  --disable-check-utests   disable check unit-tests
+  --enable-check-utests    enable check unit-tests
+  --disable-bluez          disable bluez stack connectivity
+  --enable-bluez           enable bluez stack connectivity
+  --disable-slirp          disable SLIRP userspace network connectivity
+  --disable-kvm            disable KVM acceleration support
+  --enable-kvm             enable KVM acceleration support
+  --disable-nptl           disable usermode NPTL support
+  --enable-nptl            enable usermode NPTL support
+  --enable-system          enable all system emulation targets
+  --disable-system         disable all system emulation targets
+  --enable-user            enable supported user emulation targets
+  --disable-user           disable all user emulation targets
+  --enable-linux-user      enable all linux usermode emulation targets
+  --disable-linux-user     disable all linux usermode emulation targets
+  --enable-darwin-user     enable all darwin usermode emulation targets
+  --disable-darwin-user    disable all darwin usermode emulation targets
+  --enable-bsd-user        enable all BSD usermode emulation targets
+  --disable-bsd-user       disable all BSD usermode emulation targets
+  --enable-guest-base      enable GUEST_BASE support for usermode
+                           emulation targets
+  --disable-guest-base     disable GUEST_BASE support
+  --enable-user-pie        build usermode emulation targets as PIE
+  --disable-user-pie       do not build usermode emulation targets as PIE
+  --fmod-lib               path to FMOD library
+  --fmod-inc               path to FMOD includes
+  --oss-lib                path to OSS library
+  --enable-uname-release=R Return R for uname -r in usermode emulation
+  --sparc_cpu=V            Build qemu for Sparc architecture v7, v8, v8plus, v8plusa, v9
+  --disable-uuid           disable uuid support
+  --enable-uuid            enable uuid support
+  --disable-vde            disable support for vde network
+  --enable-vde             enable support for vde network
+  --disable-linux-aio      disable Linux AIO support
+  --enable-linux-aio       enable Linux AIO support
+  --disable-attr           disables attr and xattr support
+  --enable-attr            enable attr and xattr support
+  --enable-io-thread       enable IO thread
+  --disable-blobs          disable installing provided firmware blobs
+  --enable-docs            enable documentation build
+  --disable-docs           disable documentation build
+  --disable-vhost-net      disable vhost-net acceleration support
+  --enable-vhost-net       enable vhost-net acceleration support
+  --enable-trace-backend=B Set trace backend
+                           Available backends: nop simple stderr ust dtrace
+  --with-trace-file=NAME   Full PATH,NAME of file to store traces
+                           Default:trace-<pid>
+  --disable-spice          disable spice
+  --enable-spice           enable spice
+  --enable-rbd             enable building the rados block device (rbd)
+  --disable-smartcard      disable smartcard support
+  --enable-smartcard       enable smartcard support
+  --disable-smartcard-nss  disable smartcard nss support
+  --enable-smartcard-nss   enable smartcard nss support
+  --disable-usb-redir      disable usb network redirection support
+  --enable-usb-redir       enable usb network redirection support
+  --disable-guest-agent    disable building of the QEMU Guest Agent
+  --enable-guest-agent     enable building of the QEMU Guest Agent
+
+NOTE: The object files are built at the place where configure is launched

@@ -1,0 +1,52 @@
+#!/bin/bash
+
+NDKROOT="/home/nathan/android-ndk-r7"
+
+NDKTOOLPATH="toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86"
+#/home/nathan/android-ndk-r7/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin
+SDLPATH="/home/nathan/android/SDL-1.2.15"
+#/home/nathan/android-ndk-r7/platforms/android-5/arch-arm/usr/lib
+CFLAGS="--sysroot=$NDKROOT/platforms/android-5/arch-arm/ \
+	-iprefix=$NDKROOT/platforms/android-5/arch-arm/ \
+    -mandroid -fomit-frame-pointer -Wl,-E,-q,--discard-none,-pie,-z,defs \
+    -I$SDLPATH/Inst/include \
+	-lz -llog -lc -lm -L/home/nathan/android/gcc4x/arm-linux-elf/lib -l:libSDL.a "
+LDFLAGS="--sysroot=$NDKROOT/platforms/android-5/arch-arm/ \
+	-lz -llog -lc -lm -L/home/nathan/android/gcc4x/arm-linux-elf/lib -l:libSDL.a "
+
+
+#    -I$NDKROOT/platforms/android-5/arch-arm/usr/include \
+#    -L$NDKROOT/platforms/android-5/arch-arm/usr/lib "
+#    -L/usr/lib -I/usr/include "
+CPPFLAGS="$CFLAGS"
+CXXFLAGS="$CFLAGS"
+#QEMU_LDFLAGS="$LDFLAGS" 
+QEMU_CFLAGS="$CFLAGS" \
+PATH="$SDLPATH:$SDLPATH/Inst/bin:$NDKROOT:$NDKROOT/$NDKTOOLPATH/bin:$NDKROOT/$NDKTOOLPATH:$PATH" \
+./configure --target-list="i386-softmmu" \
+--cross-prefix=arm-linux-androideabi- --enable-system \
+--enable-sdl --audio-drv-list=sdl --disable-guest-agent \
+--enable-io-thread --disable-vhost-net --disable-kvm 
+
+#--enable-io-thread \
+#--disable-xen --disable-brlapi --disable-vnc --disable-curses \
+#--disable-curl --disable-fdt --disable-check-utests \
+#--disable-bluez --disable-slirp --disable-nptl \
+#--disable-user --disable-linux-user --disable-guest-base --disable-user-pie \
+#--disable-uuid --disable-vde --disable-linux-aio --disable-attr --disable-blobs \
+#--disable-docs --disable-spice --disable-smartcard --disable-usb-redir \
+#
+
+#--disable-system \
+#
+
+#CFLAGS="-g -mandroid -D__ANDROID__ -Wl,--export-dynamic,--discard-none -I$SDLPATH/Inst/include \
+#   --sysroot=$NDKROOT/platforms/android-5/arch-arm \
+#   -I$NDKROOT/platforms/android-5/arch-arm/usr/include \
+#   -L$NDKROOT/platforms/android-5/arch-arm/usr/lib "
+#CPPFLAGS="$CFLAGS"
+#CXXFLAGS="$CFLAGS"
+#LDFLAGS="-g -mandroid -I$SDLPATH/Inst/lib \
+#   --sysroot=$NDKROOT/platforms/android-5/arch-arm \
+#   -L$NDKROOT/platforms/android-5/arch-arm/usr/lib \
+#   -lz -lc -lm -llog -l:libSDL.a"

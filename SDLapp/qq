@@ -1,0 +1,170 @@
+package libSDL.jni;
+
+import java.io.File;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.graphics.Canvas;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.os.SystemClock;
+import android.util.Log;
+
+public class libSDLview extends SurfaceView implements Runnable,SurfaceHolder.Callback
+{
+    private int ScreenBuffer[];
+    private libSDL Owner;
+    private Thread thread;
+    static Boolean MainCalled=false;
+    static Boolean Running=false;
+    
+    public libSDLview(Context context) 
+    { 
+        super(context);
+        Owner=(libSDL)context;
+        setFocusable(true); 
+        setFocusableInTouchMode(true);
+        
+        ScreenBuffer=new int[getWidth()*getHeight()];
+          
+        setOnKeyListener(new OnKeyListener() 
+        {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+		    	if(keyCode==KeyEvent.KEYCODE_MENU)
+		    		return false;
+				if(event.getAction() == KeyEvent.ACTION_UP)
+				{
+					v.onKeyUp(keyCode, event);
+				}
+				if(event.getAction() == KeyEvent.ACTION_DOWN)
+				{
+					v.onKeyDown(keyCode, event);
+				}
+				if(event.getAction() == KeyEvent.ACTION_MULTIPLE)
+				{
+					v.onKeyMultiple(keyCode, event.getRepeatCount(), event);
+				}
+				return true;
+			} 
+		});
+        requestFocus();
+        SurfaceHolder holder = getHolder();
+        holder.addCallback(this);        
+    }
+
+    protected void myDraw(Canvas canvas) 
+    {
+    	if(!MainCalled)
+    	{
+    		MainCalled=true;
+    		libSDLproxy.libSDLmain();	
+            invalidate();	// don't update now, let prog to init itself
+    		return;		
+    	}
+   		Owner.updateOrientation();
+
+    	if(libSDLproxy.libSDLupdatebuffer(ScreenBuffer,getWidth(),getHeight())==0)
+    		Owner.finish(); 
+        canvas.drawBitmap(ScreenBuffer, 0, getWidth(), 0, 0, getWidth(), getHeight(), false, null);
+        invalidate();
+    }
+
+    /* Callback invoked when the surface dimensions change. */
+    public void surfaceChanged(SurfaceHolder holder, int format, int width,
+            int height) {
+        ScreenBuffer=new int[800*480];
+        if(!Running)
+        {
+	    	thread = new Thread(this);
+	    	Running = true;
+	        thread.start();
+        }
+    }
+
+    /*
+     * Callback invoked when the Surface has been created and is ready to be
+     * used.
+     */
+    public void surfaceCreated(SurfaceHolder holder) {
+        // start the thread here so that we don't busy-wait in run()
+        // waiting for the surface to be created
+        ScreenBuffer=new int[800*480];
+        if(!Running)
+        {
+	    	thread = new Thread(this);
+	    	Running = true;
+	        thread.start();
+        }
+    }
+
+    /**
+     * Standard window-focus override. Notice focus lost so we can pause on
+     * focus lost. e.g. user switches to take a call.
+     */
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        if (!hasWindowFocus) Running=false;
+    }
+    
+    public void run() {
+        SurfaceHolder holder = getHolder();
+        int Count=0;
+        long Start=SystemClock.elapsedRealtime();  
+    	while(Running)
+    	{
+        	Canvas C=holder.lockCanvas();
+    		myDraw(C);
+    		holder.unlockCanvasAndPost(C);
+    		Count++;
+    	}    	
+    } 
+    
+    /*
+     * Callback invoked when the Surface has been destroyed and must no longer
+     * be touched. WARNING: after this method returns, the Surface/Canvas must
+     * never be touched again!
+     */
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        // we have to tell thread to shut down & wait for it to finish, or else
+        // it might touch the Surface after we return and explode
+    	Running = false;
+        try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
+    
+/*	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+        ScreenBuffer=new int[w*h];
+	}*/
+  
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	Log.v("SDLdn", event.toString());
+    	libSDLproxy.libSDLnotifykey(1,keyCode);
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
+    	Log.v("SDLmu", event.toString());
+		return super.onKeyMultiple(keyCode, repeatCount, event);
+	}
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+    	Log.v("SDLup", event.toString());
+    	libSDLproxy.libSDLnotifykey(0,keyCode);
+		return super.onKeyUp(keyCode, event);
+	}
+}

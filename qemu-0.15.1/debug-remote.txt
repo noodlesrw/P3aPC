@@ -1,0 +1,5 @@
+/home/nathan/android/adt/sdk/platform-tools
+
+./adb shell ps
+./adb forward tcp:5039 tcp:5039
+./adb shell gdbserver :5039 --attach 5362 &

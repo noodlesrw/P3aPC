@@ -1,0 +1,29 @@
+#!/bin/bash
+
+NDKROOT="/home/nathan/android-ndk-r7"
+
+NDKTOOLPATH="toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86"
+#/home/nathan/android-ndk-r7/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin
+SDLPATH="/home/nathan/android/SDL-1.2.15"
+#/home/nathan/android-ndk-r7/platforms/android-5/arch-arm/usr/lib
+CFLAGS="--sysroot=$NDKROOT/platforms/android-5/arch-arm/ \
+	-iprefix=$NDKROOT/platforms/android-5/arch-arm/ \
+    -mandroid -Wl,-E,-q,--discard-none,-pie,-z,defs \
+    -I$SDLPATH/Inst/include \
+	-Bdynamic -lz -l:libc.a -l:libm.a -llog -shared -L$SDLPATH/Inst/lib -l:libSDL.a "
+LDFLAGS="--sysroot=$NDKROOT/platforms/android-5/arch-arm/ \
+	-Bdynamic -lz -l:libc.a -l:libm.a -llog -L$SDLPATH/Inst/lib -l:libSDL.a "
+
+#    -I$NDKROOT/platforms/android-5/arch-arm/usr/include \
+#    -L$NDKROOT/platforms/android-5/arch-arm/usr/lib "
+#    -L/usr/lib -I/usr/include "
+CPPFLAGS="$CFLAGS"
+CXXFLAGS="$CFLAGS"
+QEMU_CFLAGS="$CFLAGS" \
+PATH="$SDLPATH:$SDLPATH/Inst/bin:$NDKROOT:$NDKROOT/$NDKTOOLPATH/bin:$NDKROOT/$NDKTOOLPATH:$PATH" \
+make
+
+if [ -e i386-softmmu/qemu ]; then
+#arm-unknown-linux-gnueabi-strip i386-softmmu/qemu
+cp i386-softmmu/qemu /home/nathan/android/SDLapp/libs/armeabi/libnativeapp.so
+fi
